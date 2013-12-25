@@ -1,0 +1,53 @@
+<div class="well well-sm">
+  <%= form_for(@vehicle, :html => {:class => "container"}) do |f| %>
+    <% if @vehicle.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@vehicle.errors.count, "error") %> prohibited this vehicle from being saved:</h2>
+
+        <ul>
+          <% @vehicle.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :vehicle_type %><br />
+      <%= f.select :vehicle_type, @vehicle_types %>
+    </div>
+    <div>
+      <%= f.label :vehicle_engine %><br />
+      <%= f.select :engine_id, @engines%>
+      <%= label_tag 'name', 'Power'%>
+      <%= text_field_tag :power, nil, :disabled => true %>
+    </div><br/>
+    <div class="field" id="occupants">
+      <%= f.label :occupants %><br />
+      <%= f.number_field :occupants %>
+    </div>
+    <div class="field" id="payload_weight(Kgs)">
+      <%= f.label :payload_weight_in_kgs %><br />
+      <%= f.text_field :payload_weight, :disabled => true %>
+    </div>
+    <div class="field">
+      <%= f.label :vehicle_identifier %><br />
+      <%= f.number_field :v_identifier, :maxlength => 4, :placeholder => "(Four digit number only)" %>
+    </div>
+    <%= f.fields_for :construction do |ff| %>
+      <div>
+        <%= ff.label :start_date %><br/>
+        <%= ff.date_select :start_date %>
+      </div><br/>
+      <div>
+        <%= ff.label :delivery_date %><br/>
+        <%= ff.date_select :delivery_date %>
+      </div><br/>
+    <% end %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
+
+ 

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Type:</b>
+  <%= @vehicle.vehicle_type %>
+</p>
+
+<% if @vehicle.vehicle_type == "Shuttle" %>
+	<p>
+	  <b>Occupants:</b>
+	  <%= @vehicle.occupants %>
+	</p>
+<% else %>
+	<p>
+	  <b>Payload weight:</b>
+	  <%= @vehicle.payload_weight %>
+	</p>
+<% end %>
+
+<p>
+  <b>V identifier:</b>
+  <%= @vehicle.v_identifier %>
+</p>
+
+<span class="label label-warning">
+	<%= link_to 'Vehicle Info 1', info_vehicle_path(@vehicle,:info => "first_url") %>
+</span>
+<span class="label label-warning">
+	<%= link_to 'Vehicle Info 2', info_vehicle_path(@vehicle,:info => "second_url") %>
+</span>
+
+<%= link_to 'Edit', edit_vehicle_path(@vehicle) %> |
+<%= link_to 'Back', vehicles_path %>

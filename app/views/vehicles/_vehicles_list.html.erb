@@ -1,0 +1,52 @@
+<!-- Vehicles Listing -->
+<% unless @vehicles.blank?%>
+  <table class="table">
+    <tr>
+      <th>Type</th>
+      <th>Occupants</th>
+      <th>Payload weight</th>
+      <th>Vehicle identifier</th>
+      <th>Construction Start date</th>
+      <th>Construction Delivery date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Share</th>
+    </tr>
+
+    <% @vehicles.each do |vehicle| %>
+      <tr>
+        <td><%= vehicle.vehicle_type %></td>
+        <% if vehicle.vehicle_type == "Shuttle"%>
+          <td><%= vehicle.occupants %></td>
+        <% else%>
+          <td>NA</td>
+        <% end %>
+        <% if vehicle.vehicle_type == "Satellite"%>
+          <td><%= vehicle.payload_weight %></td>
+        <% else%>
+          <td>NA</td>
+        <% end %>  
+        <td><%= vehicle.v_identifier %></td>
+        <td><%= vehicle.construction.start_date.to_date %></td>
+        <td><%= vehicle.construction.delivery_date.to_date %></td>
+        <td><%= link_to 'Show', vehicle %></td>
+        <td><%= link_to 'Edit', edit_vehicle_path(vehicle) %></td>
+        <td><%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, :class => 'delete_vehicle' %>
+        </td>
+        <% if current_user.admin? %>
+          <td><%= link_to 'Allocate users', allocate_users_path(vehicle) %></td>
+        <% else %>      
+          <td><%= link_to 'Share to users', share_vehicles_with_users_path(vehicle) %></td>
+        <%end%>      
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <div class="panel-body panel-warning">
+    <center>
+      <strong> No vehicles assigned yet, please add vehicle. </strong>
+    </center>
+  </div>
+<% end %>
+<!-- Vehicles List

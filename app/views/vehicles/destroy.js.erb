@@ -1,0 +1,11 @@
+$('.delete_vehicle').bind('ajax:success', function() {  
+        $(this).closest('tr').fadeOut();
+});
+
+$('#notification').html('<div class="alert alert-success" id="test">Vehicle Deleted</div> ');
+
+$(document).ready(function() {
+	setTimeout(function() {
+	    $('#notification').fadeOut('slow');
+	}, 3000);
+});	

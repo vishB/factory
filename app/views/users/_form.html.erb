@@ -1,0 +1,76 @@
+<%# @user.build_user_detail %>
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, :autofocus => true %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+  
+
+  <%= f.fields_for :user_detail do |detail| %>
+    <div class="field">
+      <%= detail.label :first_name %><br />
+      <%= detail.text_field :first_name %>
+    </div>
+
+    <div class="field">
+      <%= detail.label :last_name %><br />
+      <%= detail.text_field :last_name %>
+    </div>
+
+    <div>
+      <%= detail.label :age %></br>
+      <%= detail.text_field :age, :class => "left", :id => "field", :name => "field" %>
+    </div>
+
+    <div>
+      <%= detail.label :sex %></br>
+      <%= detail.select :sex, options_for_select([["Select One", ""],"Male", "Female"])%>
+    </div></br>
+
+    <div>
+      <%= detail.label :phone %></br>
+      <%= detail.text_field :phone %>
+    </div></br>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <%end%>
+  
+<% end %>
+
+
+<script>
+// just for the demos, avoids form submit
+jQuery.validator.setDefaults({
+debug: true,
+success: "valid"
+});
+$( "#new_user" ).validate({
+rules: {
+  field: {
+    required: true,
+    number: true
+    }
+  }
+});
+</script>
